@@ -19,9 +19,9 @@ export default function AbstractSection() {
           <Awards />
         </div>
 
-        <div className="mt-16 max-w-2xl rounded-sm bg-foam p-8">
+        <div className="mt-16 max-w-2xl rounded-sm bg-foam p-4 sm:p-8">
           <h3 className="font-display text-xl text-ink">Submit your abstract</h3>
-          <div className="mt-6">
+          <div className="mt-4">
             <AbstractForm />
           </div>
         </div>
