@@ -21,7 +21,7 @@ export const WEB3FORMS_ACCESS_KEY = 'b4bdb486-2fb9-4495-a988-04ab2e2b0d7d';
  * Get this from: Tally form → Share → Embed → "Standard embed" src URL.
  * TODO: replace before launch.
  */
-export const TALLY_ABSTRACT_FORM_URL = 'https://tally.so/embed/REPLACE_WITH_FORM_ID';
+export const TALLY_ABSTRACT_FORM_URL = 'https://tally.so/embed/5BJLy6';
 
 /**
  * Organizer inbox shown on the site (footer, contact copy) and used as the
