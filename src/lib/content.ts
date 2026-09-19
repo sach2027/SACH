@@ -38,7 +38,7 @@ export const awards: AwardCategory[] = [
     eligibility:
       'Presenting author of an accepted abstract, under 40 years of age.',
     note:
-      'Mention your YIA application during abstract submission and attach proof of age. Winner selected by the Juries following oral presentation.',
+      'You will need to mention your YIA application and attach proof of age when submitting your abstract. Winner selected by the Juries following oral presentation.',
   },
   {
     name: 'Best Oral Presentation Awards',

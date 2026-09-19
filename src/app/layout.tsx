@@ -10,7 +10,7 @@ import { SITE } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.fullTitle}`,
-  description: `${SITE.fullTitle}. ${SITE.dates} at ${SITE.venue}. ${SITE.motto}.`,
+  description: `${SITE.fullTitle}. ${SITE.dates} at ${SITE.venue}. ${SITE.motto}. Register your interest today.`,
 };
 
 export default function RootLayout({

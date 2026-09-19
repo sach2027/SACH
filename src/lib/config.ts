@@ -13,15 +13,13 @@
 export const WEB3FORMS_ACCESS_KEY = 'b4bdb486-2fb9-4495-a988-04ab2e2b0d7d';
 
 /**
- * Tally.so embed URL for the abstract submission form. Tally's free plan
- * supports unlimited submissions AND file uploads (up to 10MB/file), which
- * Web3Forms' free plan doesn't — needed here for the abstract file and the
- * conditional YIA age-proof upload.
+ * Tally.so embed URL for the "register your interest" form.
  *
- * Get this from: Tally form → Share → Embed → "Standard embed" src URL.
- * TODO: replace before launch.
+ * Get this from: Tally form > Share > Embed > "Standard embed" src URL.
+ * TODO: replace with the new interest form URL before launch (this is
+ * still the old abstract form until swapped).
  */
-export const TALLY_ABSTRACT_FORM_URL = 'https://tally.so/embed/5BJLy6';
+export const TALLY_INTEREST_FORM_URL = 'https://tally.so/embed/5BJLy6';
 
 /**
  * Organizer inbox shown on the site (footer, contact copy) and used as the

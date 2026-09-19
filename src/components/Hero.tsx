@@ -30,10 +30,10 @@ export default function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <a
-              href="#abstracts"
+              href="#register"
               className="rounded-sm bg-coral px-6 py-3 text-sm font-medium text-foam transition-colors hover:bg-coral-dark"
             >
-              Submit Abstract
+              Register Your Interest
             </a>
             <a
               href="#logistics"
