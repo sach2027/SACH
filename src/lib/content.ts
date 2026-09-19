@@ -55,9 +55,9 @@ export const awards: AwardCategory[] = [
   {
     name: 'Academic/Travel Grant',
     winners: '5 awardees',
-    eligibility: 'Registered abstract presenter, under 30 years of age.',
-    amount: 'USD 100 for each awardee',
-    note: 'Proof of date of birth will be required later.',
+    eligibility: 'Open to registered abstract presenters who are under 30 years of age.',
+    amount: 'Each awardee will receive USD 100.',
+    note: 'Proof of date of birth will be required at a later stage.',
   },
 ];
 
