@@ -13,13 +13,11 @@
 export const WEB3FORMS_ACCESS_KEY = 'b4bdb486-2fb9-4495-a988-04ab2e2b0d7d';
 
 /**
- * Tally.so embed URL for the "register your interest" form.
- *
- * Get this from: Tally form > Share > Embed > "Standard embed" src URL.
- * TODO: replace with the new interest form URL before launch (this is
- * still the old abstract form until swapped).
+ * Google Apps Script web app URL for the "register your interest" form.
+ * Setup steps: apps-script/README.md. Paste the deployed URL (ends in /exec).
  */
-export const TALLY_INTEREST_FORM_URL = 'https://tally.so/embed/5BJLy6';
+export const INTEREST_FORM_ENDPOINT =
+  'https://script.google.com/macros/s/AKfycbwqHSnYZIn9sLKe95wUkyCxdsF_LBX0situpJjk-vRyCFbwu9vLcjDH8UFYpfAFVoaC9A/exec';
 
 /**
  * Organizer inbox shown on the site (footer, contact copy) and used as the
@@ -27,7 +25,7 @@ export const TALLY_INTEREST_FORM_URL = 'https://tally.so/embed/5BJLy6';
  *
  * TODO: replace before launch.
  */
-export const ORGANIZER_EMAIL = 'shazkp1357@gmail.com';
+export const ORGANIZER_EMAIL = 'sachcommittee@gmail.com';
 
 /** Conference target date/time, authoritative in IST (UTC+5:30). */
 export const CONFERENCE_START_IST = '2027-04-27T00:00:00+05:30';
