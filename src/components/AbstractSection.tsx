@@ -6,7 +6,7 @@ export default function AbstractSection() {
     <section id="abstracts" className="bg-ink py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="font-display text-3xl font-medium text-foam sm:text-4xl">
-          Abstract Submission &amp; Awards
+          Grants and Awards
         </h2>
         <p className="mt-4 max-w-prose text-[17px] leading-relaxed text-foam/70">
           Submit your abstract and you&apos;ll automatically be considered for

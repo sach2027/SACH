@@ -27,6 +27,7 @@ export type AwardCategory = {
   name: string;
   winners: string;
   eligibility: string;
+  amount?: string;
   note?: string;
 };
 
@@ -50,6 +51,13 @@ export const awards: AwardCategory[] = [
     winners: '2 awardees',
     eligibility: 'Presenting author of an abstract accepted for poster presentation.',
     note: 'No separate application — all accepted poster abstracts are automatically considered.',
+  },
+  {
+    name: 'Academic/Travel Grant',
+    winners: '5 awardees',
+    eligibility: 'Registered abstract presenter, under 30 years of age.',
+    amount: 'USD 100 for each awardee',
+    note: 'Proof of date of birth will be required later.',
   },
 ];
 
