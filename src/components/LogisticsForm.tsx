@@ -68,6 +68,7 @@ export default function LogisticsForm() {
         <option value="ticketing">Air ticketing</option>
         <option value="accommodation">Accommodation</option>
         <option value="sightseeing">Local sightseeing</option>
+        <option value="conference">Conference</option>
         <option value="other">Other</option>
       </select>
       <textarea
