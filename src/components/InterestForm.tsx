@@ -9,13 +9,43 @@ const inputClass =
   'w-full rounded-sm border border-ink/15 bg-white px-3 py-2.5 text-sm text-ink focus:border-reef focus:outline-none';
 const labelClass = 'mb-1 block text-xs font-medium text-slate/70';
 
-const attendingOptions = [
-  'Delegate',
-  'Faculty / Speaker',
-  'Trainee / Student',
-  'Accompanying person',
+const presentationOptions = [
+  'Oral Paper',
+  'Poster/ePoster',
+  'Speaker',
+  'Attending only (not presenting)',
 ];
-const choiceOptions = ['Yes', 'Maybe', 'No'];
+const grantOptions = ['Yes', 'No'];
+
+function RadioGroup({
+  legend,
+  name,
+  options,
+}: {
+  legend: string;
+  name: string;
+  options: string[];
+}) {
+  return (
+    <fieldset>
+      <legend className={labelClass}>{legend} *</legend>
+      <div className="mt-2 space-y-2">
+        {options.map((option, i) => (
+          <label key={option} className="flex items-center gap-3 text-sm text-slate/80">
+            <input
+              type="radio"
+              name={name}
+              value={option}
+              required={i === 0}
+              className="h-4 w-4 accent-reef"
+            />
+            {option}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
 
 export default function InterestForm() {
   const [status, setStatus] = useState<Status>('idle');
@@ -34,14 +64,8 @@ export default function InterestForm() {
       name: text('name'),
       email: text('email'),
       phone: text('phone'),
-      country: text('country'),
-      institution: text('institution'),
-      designation: text('designation'),
-      attendingAs: text('attendingAs'),
-      abstractInterest: text('abstractInterest'),
-      grantInterest: text('grantInterest'),
-      travelHelp: fd.get('travelHelp') === 'on',
-      consent: fd.get('consent') === 'on',
+      presentationType: text('presentationType'),
+      grant: text('grant'),
       website: text('website'), // honeypot, must stay empty
     };
 
@@ -68,15 +92,15 @@ export default function InterestForm() {
         <p className="font-display text-lg text-reef">Thank you for your interest.</p>
         <p className="mt-2 text-sm leading-relaxed text-slate/80">
           We have sent a confirmation to your email address. If you do not see
-          it in a few minutes, please check your spam folder. We will notify
-          you as soon as registration opens.
+          it in a few minutes, please check your spam folder. We will contact
+          you once registration opens.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
       {/* Honeypot: hidden from people, tempting to bots */}
       <div className="hidden" aria-hidden="true">
         <label>
@@ -85,76 +109,31 @@ export default function InterestForm() {
         </label>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="if-name" className={labelClass}>Full name *</label>
-          <input id="if-name" name="name" required maxLength={120} autoComplete="name" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="if-email" className={labelClass}>Email *</label>
-          <input id="if-email" name="email" type="email" required maxLength={254} autoComplete="email" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="if-phone" className={labelClass}>Phone / WhatsApp</label>
-          <input id="if-phone" name="phone" type="tel" maxLength={40} autoComplete="tel" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="if-country" className={labelClass}>Country *</label>
-          <input id="if-country" name="country" required maxLength={80} autoComplete="country-name" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="if-institution" className={labelClass}>Institution *</label>
-          <input id="if-institution" name="institution" required maxLength={200} autoComplete="organization" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="if-designation" className={labelClass}>Designation *</label>
-          <input id="if-designation" name="designation" required maxLength={120} autoComplete="organization-title" className={inputClass} />
-        </div>
-      </div>
-
       <div>
-        <label htmlFor="if-attending" className={labelClass}>I would attend as *</label>
-        <select id="if-attending" name="attendingAs" required defaultValue="" className={inputClass}>
-          <option value="" disabled>Select one</option>
-          {attendingOptions.map((o) => (
-            <option key={o} value={o}>{o}</option>
-          ))}
-        </select>
+        <label htmlFor="if-name" className={labelClass}>Full name *</label>
+        <input id="if-name" name="name" required maxLength={120} autoComplete="name" className={inputClass} />
+      </div>
+      <div>
+        <label htmlFor="if-email" className={labelClass}>Email *</label>
+        <input id="if-email" name="email" type="email" required maxLength={254} autoComplete="email" className={inputClass} />
+      </div>
+      <div>
+        <label htmlFor="if-phone" className={labelClass}>Phone (with country code) *</label>
+        <input
+          id="if-phone"
+          name="phone"
+          type="tel"
+          required
+          maxLength={25}
+          pattern="\+?[0-9\s\-\(\)]{6,25}"
+          title="Enter a valid phone number, for example +91 98765 43210"
+          autoComplete="tel"
+          className={inputClass}
+        />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="if-abstract" className={labelClass}>Interested in presenting an abstract? *</label>
-          <select id="if-abstract" name="abstractInterest" required defaultValue="" className={inputClass}>
-            <option value="" disabled>Select one</option>
-            {choiceOptions.map((o) => (
-              <option key={o} value={o}>{o}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="if-grant" className={labelClass}>Interested in the Academic/Travel Grant? *</label>
-          <select id="if-grant" name="grantInterest" required defaultValue="" className={inputClass}>
-            <option value="" disabled>Select one</option>
-            {choiceOptions.map((o) => (
-              <option key={o} value={o}>{o}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <label className="flex items-start gap-3 text-sm text-slate/80">
-        <input type="checkbox" name="travelHelp" className="mt-0.5 h-4 w-4 accent-reef" />
-        I would like help with travel and accommodation.
-      </label>
-
-      <label className="flex items-start gap-3 text-sm text-slate/80">
-        <input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 accent-reef" />
-        <span>
-          I agree to be contacted by the SACH 2027 organizing committee about
-          the conference. *
-        </span>
-      </label>
+      <RadioGroup legend="Presentation type" name="presentationType" options={presentationOptions} />
+      <RadioGroup legend="Applying for Academic/Travel Grant?" name="grant" options={grantOptions} />
 
       {status === 'error' && (
         <p className="text-sm text-coral-dark" role="alert">
@@ -163,13 +142,19 @@ export default function InterestForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="rounded-sm bg-coral px-6 py-3 text-sm font-medium text-foam transition-colors hover:bg-coral-dark disabled:opacity-60"
-      >
-        {status === 'submitting' ? 'Sending…' : 'Register my interest'}
-      </button>
+      <div>
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className="rounded-sm bg-coral px-6 py-3 text-sm font-medium text-foam transition-colors hover:bg-coral-dark disabled:opacity-60"
+        >
+          {status === 'submitting' ? 'Sending…' : 'Register my interest'}
+        </button>
+        <p className="mt-3 text-xs text-slate/60">
+          By submitting, you agree to be contacted by the SACH 2027 organizing
+          committee about the conference.
+        </p>
+      </div>
     </form>
   );
 }

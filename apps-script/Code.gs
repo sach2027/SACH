@@ -2,7 +2,7 @@
  * SACH 2027 "Register your interest" backend (Google Apps Script).
  *
  * For each submission this script:
- *   1. appends a row to the "Interest" sheet of the spreadsheet it is attached to,
+ *   1. appends a row to the "Registrations" sheet of the spreadsheet it is attached to,
  *   2. emails the organizer a notification with the registrant's details,
  *   3. emails the registrant a confirmation of their interest.
  *
@@ -10,20 +10,21 @@
  */
 
 const CONFIG = {
-  SHEET_NAME: 'Interest',
+  SHEET_NAME: 'Registrations',
   OWNER_EMAIL: 'sachcommittee@gmail.com', // receives notifications and is the reply-to on confirmations
   SENDER_NAME: 'SACH 2027',
-  EVENT_DATES: '27 to 29 April 2027',
+  EVENT_DATES: '27th to 29th April 2027',
   EVENT_VENUE: 'JEN Malé by Shangri-La, Malé, Maldives',
+  EVENT_MANAGER: 'Air Yatra Online',
+  EVENT_MANAGER_EMAIL: 'ach2026.registration@airyatraonline.com',
 };
 
-const ATTENDING_AS = ['Delegate', 'Faculty / Speaker', 'Trainee / Student', 'Accompanying person'];
-const YES_NO_MAYBE = ['Yes', 'Maybe', 'No'];
+const PRESENTATION_TYPES = ['Oral Paper', 'Poster/ePoster', 'Speaker', 'Attending only (not presenting)'];
+const YES_NO = ['Yes', 'No'];
 
 const HEADERS = [
-  'Timestamp', 'Full name', 'Email', 'Phone', 'Country', 'Institution',
-  'Designation', 'Attending as', 'Interested in presenting an abstract',
-  'Interested in Academic/Travel Grant', 'Wants travel & accommodation help',
+  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type',
+  'Applying for Academic/Travel Grant',
 ];
 
 function doPost(e) {
@@ -56,26 +57,28 @@ function clean_(value, max) {
   return String(value == null ? '' : value).replace(/[\r\n\t]+/g, ' ').trim().slice(0, max);
 }
 
+// Title-cases a name only when it was typed entirely in lower case or upper case,
+// so names like "McDonald", "D'Souza" or "de Silva" typed correctly are left alone.
+function formatName_(name) {
+  if (name !== name.toLowerCase() && name !== name.toUpperCase()) return name;
+  return name.toLowerCase().replace(/(^|[\s\-'\u2019])([^\s\-'\u2019])/g, function (m, sep, ch) {
+    return sep + ch.toUpperCase();
+  });
+}
+
 function validate_(raw) {
   const d = {
-    name: clean_(raw.name, 120),
+    name: formatName_(clean_(raw.name, 120)),
     email: clean_(raw.email, 254),
-    phone: clean_(raw.phone, 40),
-    country: clean_(raw.country, 80),
-    institution: clean_(raw.institution, 200),
-    designation: clean_(raw.designation, 120),
-    attendingAs: clean_(raw.attendingAs, 40),
-    abstractInterest: clean_(raw.abstractInterest, 10),
-    grantInterest: clean_(raw.grantInterest, 10),
-    travelHelp: raw.travelHelp === true ? 'Yes' : 'No',
+    phone: clean_(raw.phone, 25),
+    presentationType: clean_(raw.presentationType, 40),
+    grant: clean_(raw.grant, 5),
   };
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email);
-  const required = [d.name, d.country, d.institution, d.designation];
-  if (!emailOk || required.some(function (v) { return !v; })) return null;
-  if (raw.consent !== true) return null;
-  if (ATTENDING_AS.indexOf(d.attendingAs) === -1) return null;
-  if (YES_NO_MAYBE.indexOf(d.abstractInterest) === -1) return null;
-  if (YES_NO_MAYBE.indexOf(d.grantInterest) === -1) return null;
+  if (!d.name) return null;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return null;
+  if (!/^\+?[\d\s\-()]{6,25}$/.test(d.phone)) return null;
+  if (PRESENTATION_TYPES.indexOf(d.presentationType) === -1) return null;
+  if (YES_NO.indexOf(d.grant) === -1) return null;
   return d;
 }
 
@@ -96,8 +99,7 @@ function saveRow_(d) {
     }
     sheet.appendRow([
       new Date(), safeCell_(d.name), safeCell_(d.email), safeCell_(d.phone),
-      safeCell_(d.country), safeCell_(d.institution), safeCell_(d.designation),
-      d.attendingAs, d.abstractInterest, d.grantInterest, d.travelHelp,
+      d.presentationType, d.grant,
     ]);
   } finally {
     lock.releaseLock();
@@ -111,63 +113,66 @@ function esc_(s) {
 
 function detailRows_(d) {
   return [
-    ['Full name', d.name], ['Email', d.email], ['Phone', d.phone || 'Not provided'],
-    ['Country', d.country], ['Institution', d.institution], ['Designation', d.designation],
-    ['Attending as', d.attendingAs],
-    ['Interested in presenting an abstract', d.abstractInterest],
-    ['Interested in Academic/Travel Grant', d.grantInterest],
-    ['Wants travel & accommodation help', d.travelHelp],
+    ['Full name', d.name],
+    ['Email', d.email],
+    ['Phone', d.phone],
+    ['Presentation type', d.presentationType],
+    ['Applying for Academic/Travel Grant', d.grant],
   ];
 }
 
-function detailsTable_(d) {
+function sendOwnerEmail_(d) {
   const rows = detailRows_(d).map(function (r) {
     return '<tr><td style="padding:6px 16px 6px 0;color:#555;vertical-align:top">' + esc_(r[0]) +
       '</td><td style="padding:6px 0;color:#111">' + esc_(r[1]) + '</td></tr>';
   }).join('');
-  return '<table style="border-collapse:collapse;font-size:14px">' + rows + '</table>';
-}
 
-function sendOwnerEmail_(d) {
   MailApp.sendEmail({
     to: CONFIG.OWNER_EMAIL,
     replyTo: d.email,
     name: CONFIG.SENDER_NAME + ' website',
-    subject: 'New SACH 2027 interest: ' + d.name + ' (' + d.country + ')',
+    subject: 'New SACH 2027 interest: ' + d.name + ' (' + d.presentationType + ')',
     body: detailRows_(d).map(function (r) { return r[0] + ': ' + r[1]; }).join('\n'),
-    htmlBody: '<p>A new person has registered their interest in SACH 2027.</p>' + detailsTable_(d),
+    htmlBody: '<p>A new person has registered their interest in SACH 2027.</p>' +
+      '<table style="border-collapse:collapse;font-size:14px">' + rows + '</table>',
   });
 }
 
 function sendConfirmationEmail_(d) {
   const plain =
     'Dear ' + d.name + ',\n\n' +
-    'Thank you for registering your interest in SACH 2027, the 8th South-Asian Academy of ' +
-    'Cytopathology & Histopathology Conference.\n\n' +
-    'Dates: ' + CONFIG.EVENT_DATES + '\nVenue: ' + CONFIG.EVENT_VENUE + '\n\n' +
-    'We will notify you as soon as registration opens. This email confirms we have received ' +
-    'your interest; it is not a registration.\n\n' +
-    'If you have any questions, simply reply to this email.\n\n' +
-    'Warm regards,\nOrganizing Committee, SACH 2027';
+    'Thank you for your interest in registering for SACH 2027, the 8th South-Asian Academy of ' +
+    'Cytopathology & Histopathology Conference, to be held on ' + CONFIG.EVENT_DATES + ' at ' +
+    CONFIG.EVENT_VENUE + '.\n\n' +
+    'We shall contact you once the registration is opened. If you need more information or ' +
+    'clarification, kindly contact us at ' + CONFIG.OWNER_EMAIL + '. For air ticketing, accommodation ' +
+    'and local sightseeing, you may also reach our event manager, ' + CONFIG.EVENT_MANAGER + ', at ' +
+    CONFIG.EVENT_MANAGER_EMAIL + '.\n\n' +
+    'Thank you and we look forward to welcoming you to SACH 2027.\n\n' +
+    'Warmest Regards,\n\nOrganizing Committee\nSACH 2027\nEmail: ' + CONFIG.OWNER_EMAIL;
 
   const html =
-    '<div style="font-family:Arial,sans-serif;font-size:15px;color:#111;line-height:1.6;max-width:560px">' +
+    '<div style="font-family:Arial,sans-serif;font-size:15px;color:#111;line-height:1.6;max-width:600px">' +
     '<p>Dear ' + esc_(d.name) + ',</p>' +
-    '<p>Thank you for registering your interest in <strong>SACH 2027</strong>, the 8th South-Asian ' +
-    'Academy of Cytopathology &amp; Histopathology Conference.</p>' +
-    '<p><strong>Dates:</strong> ' + esc_(CONFIG.EVENT_DATES) + '<br><strong>Venue:</strong> ' +
-    esc_(CONFIG.EVENT_VENUE) + '</p>' +
-    '<p>We will notify you as soon as registration opens. This email confirms we have received ' +
-    'your interest; it is not a registration.</p>' +
-    '<p style="margin-top:20px">The details you submitted:</p>' + detailsTable_(d) +
-    '<p style="margin-top:20px">If you have any questions, simply reply to this email.</p>' +
-    '<p>Warm regards,<br>Organizing Committee, SACH 2027</p></div>';
+    '<p>Thank you for your interest in registering for <strong>SACH 2027</strong>, the 8th South-Asian ' +
+    'Academy of Cytopathology &amp; Histopathology Conference, to be held on ' + esc_(CONFIG.EVENT_DATES) +
+    ' at ' + esc_(CONFIG.EVENT_VENUE) + '.</p>' +
+    '<p>We shall contact you once the registration is opened. If you need more information or ' +
+    'clarification, kindly contact us at <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
+    esc_(CONFIG.OWNER_EMAIL) + '</a>. For air ticketing, accommodation and local sightseeing, you may ' +
+    'also reach our event manager, ' + esc_(CONFIG.EVENT_MANAGER) + ', at <a href="mailto:' +
+    esc_(CONFIG.EVENT_MANAGER_EMAIL) + '">' +
+    esc_(CONFIG.EVENT_MANAGER_EMAIL) + '</a>.</p>' +
+    '<p>Thank you and we look forward to welcoming you to SACH 2027.</p>' +
+    '<p>Warmest Regards,</p>' +
+    '<p>Organizing Committee<br>SACH 2027<br>Email: <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
+    esc_(CONFIG.OWNER_EMAIL) + '</a></p></div>';
 
   MailApp.sendEmail({
     to: d.email,
     replyTo: CONFIG.OWNER_EMAIL,
     name: CONFIG.SENDER_NAME,
-    subject: 'SACH 2027: we have received your interest',
+    subject: 'SACH 2027: thank you for your interest',
     body: plain,
     htmlBody: html,
   });
