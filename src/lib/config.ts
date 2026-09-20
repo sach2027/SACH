@@ -10,7 +10,7 @@
  * Used only by the Logistics inquiry form (no file uploads needed there —
  * Web3Forms' free tier covers this fine).
  */
-export const WEB3FORMS_ACCESS_KEY = 'b4bdb486-2fb9-4495-a988-04ab2e2b0d7d';
+export const WEB3FORMS_ACCESS_KEY = 'a9d0aba1-8d31-4fa4-8846-d4acb7e2b59b';
 
 /**
  * Google Apps Script web app URL for the "register your interest" form.
