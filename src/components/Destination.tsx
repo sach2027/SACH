@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { attractions, type Attraction } from '@/lib/content';
+import AttractionArt from './art/AttractionArt';
 
 const CATEGORIES: Array<Attraction['category'] | 'All'> = [
   'All',
@@ -16,7 +17,7 @@ export default function Destination() {
     filter === 'All' ? attractions : attractions.filter((a) => a.category === filter);
 
   return (
-    <section className="bg-sand py-20 sm:py-28">
+    <section id="explore" className="bg-sand py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="font-display text-3xl font-medium text-ink sm:text-4xl">
@@ -41,7 +42,11 @@ export default function Destination() {
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((a) => (
-            <div key={a.name} className="rounded-sm border border-ink/10 bg-foam p-6">
+            <div key={a.name} className="overflow-hidden rounded-sm border border-ink/10 bg-foam">
+              <div className="h-36">
+                <AttractionArt name={a.name} />
+              </div>
+              <div className="p-6">
               <span className="text-xs uppercase tracking-wide text-coral">
                 {a.category}
               </span>
@@ -49,6 +54,7 @@ export default function Destination() {
               <p className="mt-2 text-sm leading-relaxed text-slate/70">
                 {a.description}
               </p>
+              </div>
             </div>
           ))}
         </div>

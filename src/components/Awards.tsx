@@ -1,10 +1,14 @@
 import { awards } from '@/lib/content';
+import AwardIcon from './art/AwardIcon';
 
 export default function Awards() {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {awards.map((award) => (
-        <div key={award.name} className="rounded-sm border border-foam/15 p-6">
+        <div key={award.name} className="rounded-sm border border-foam/15 bg-foam/[0.03] p-6">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-coral/15 text-coral-light">
+            <AwardIcon name={award.icon} />
+          </div>
           <p className="font-display text-xs uppercase tracking-wide text-coral-light">
             {award.winners}
           </p>

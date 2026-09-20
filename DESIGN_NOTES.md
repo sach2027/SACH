@@ -49,3 +49,14 @@ All structured data (speakers, awards, contacts, attractions) lives in
 CMS or backend can replace the data source without touching layout code.
 Forms currently point at a placeholder Web3Forms access key and organizer
 email in `src/lib/config.ts` — swap those two values when ready to go live.
+
+## Illustration & navigation (added)
+- Sticky top nav with the SACH logo (`public/logo.png`, background removed from
+  the supplied JPG) and a persistent "Register Interest" CTA.
+- No photography. Destination cards use flat vector panels
+  (`src/components/art/AttractionArt.tsx`) drawn in the site palette plus one
+  muted lagoon tone, so they read as one family and load instantly.
+- Wave edges (`art/Waves.tsx`) soften colour changes between sections; the
+  hero closes on a layered sea with a low sun. The "specimen field" (`art/SpecimenField.tsx`)
+  is the stained-tissue counterpart to the specimen ring in the hero.
+- To revert to the plain look: `git revert <commit hash of "Add nav bar and illustrations">`.

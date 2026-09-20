@@ -1,11 +1,16 @@
+import SpecimenField from './art/SpecimenField';
+
 export default function Welcome() {
   return (
-    <section className="bg-sand py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="relative overflow-hidden bg-sand py-20 sm:py-28">
+      <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-          <h2 className="font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
-            Welcome to SACH 2027
-          </h2>
+          <div>
+            <h2 className="font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+              Welcome to SACH 2027
+            </h2>
+            <SpecimenField className="mt-10 hidden h-56 w-56 lg:block" />
+          </div>
           <div className="max-w-prose space-y-5 text-[17px] leading-relaxed text-slate">
             <p>
               We gather in this serene island nation to share knowledge and

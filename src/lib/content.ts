@@ -24,6 +24,7 @@ export const speakers: Speaker[] = [
 ];
 
 export type AwardCategory = {
+  icon: 'medal' | 'mic' | 'poster' | 'plane';
   name: string;
   winners: string;
   eligibility: string;
@@ -33,6 +34,7 @@ export type AwardCategory = {
 
 export const awards: AwardCategory[] = [
   {
+    icon: 'medal',
     name: 'Young Investigator Award (YIA)',
     winners: '1 awardee',
     eligibility:
@@ -41,18 +43,21 @@ export const awards: AwardCategory[] = [
       'You will need to mention your YIA application and attach proof of age when submitting your abstract. Winner selected by the Juries following oral presentation.',
   },
   {
+    icon: 'mic',
     name: 'Best Oral Presentation Awards',
     winners: '2 awardees',
     eligibility: 'Presenting author of an abstract accepted for oral presentation.',
     note: 'No separate application — all accepted oral abstracts are automatically considered.',
   },
   {
+    icon: 'poster',
     name: 'Best Poster Presentation Awards',
     winners: '2 awardees',
     eligibility: 'Presenting author of an abstract accepted for poster presentation.',
     note: 'No separate application — all accepted poster abstracts are automatically considered.',
   },
   {
+    icon: 'plane',
     name: 'Academic/Travel Grant',
     winners: '5 awardees',
     eligibility: 'Open to registered abstract presenters who are under 30 years of age.',

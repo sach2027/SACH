@@ -1,10 +1,17 @@
 import Countdown from './Countdown';
+import { HeroSea } from './art/Waves';
 import { SITE } from '@/lib/config';
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-ink">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-28">
+    <section
+      className="relative overflow-hidden bg-ink"
+      style={{
+        backgroundImage:
+          'radial-gradient(ellipse 60% 70% at 78% 38%, rgba(31,107,92,0.40), transparent 70%)',
+      }}
+    >
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 pb-36 pt-14 sm:pb-48 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-52">
         {/* Left: identity + CTAs */}
         <div className="animate-rise [animation-delay:0ms] opacity-0">
           <p className="font-display text-sm text-coral-light">
@@ -68,6 +75,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      <HeroSea />
     </section>
   );
 }

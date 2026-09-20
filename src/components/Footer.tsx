@@ -1,9 +1,20 @@
+import Image from 'next/image';
 import { SITE } from '@/lib/config';
+import { asset } from '@/lib/assets';
+import { WaveTop } from './art/Waves';
 
 export default function Footer() {
   return (
-    <footer className="bg-ink py-12">
+    <footer className="relative bg-ink pb-12 pt-20">
+      <WaveTop color="#F6F3EA" />
       <div className="mx-auto max-w-6xl px-6 text-center">
+        <Image
+          src={asset('/logo.png')}
+          alt="SACH logo"
+          width={86}
+          height={80}
+          className="mx-auto mb-5 h-20 w-auto"
+        />
         <p className="font-display text-lg italic text-foam/90">
           Together, let us create history.
         </p>

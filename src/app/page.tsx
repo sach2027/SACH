@@ -1,3 +1,4 @@
+import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import SectionDivider from '@/components/SectionDivider';
 import Welcome from '@/components/Welcome';
@@ -9,16 +10,18 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <Welcome />
-      <SectionDivider tone="on-sand" />
-      <Speakers />
-      <RegisterSection />
-      <SectionDivider tone="on-sand" />
-      <Destination />
-      <Logistics />
+    <>
+      <Nav />
+      <main id="top">
+        <Hero />
+        <Welcome />
+        <SectionDivider tone="on-sand" />
+        <Speakers />
+        <RegisterSection />
+        <Destination />
+        <Logistics />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
