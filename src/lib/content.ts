@@ -142,6 +142,7 @@ export type LeadershipContact = {
   roles: string[];
   email: string;
   phone: string;
+  photo?: string; // file in /public/speakers
 };
 
 export const leadership: LeadershipContact[] = [
@@ -150,12 +151,14 @@ export const leadership: LeadershipContact[] = [
     roles: ['President, SACH', 'Organizing Chairman, SACH 2027'],
     email: 'rgwpinto@gmail.com',
     phone: '+91-9422641170',
+    photo: '/speakers/rgw-pinto.jpg',
   },
   {
     name: 'Prof. (Dr.) K. K. Prasad',
     roles: ['Secretary, SACH', 'Organizing Secretary, SACH 2027'],
     email: 'kaushalkp10@hotmail.com',
     phone: '+91-9872836195',
+    photo: '/speakers/kk-prasad.jpg',
   },
 ];
 

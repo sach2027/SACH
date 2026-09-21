@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import { leadership, eventManager } from '@/lib/content';
+import { asset } from '@/lib/assets';
 import LogisticsForm from './LogisticsForm';
 
 export default function Logistics() {
@@ -54,23 +56,37 @@ export default function Logistics() {
         </p>
         <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {leadership.map((person) => (
-            <div key={person.name} className="rounded-sm border border-ink/10 p-6">
-              <h3 className="font-display text-lg text-ink">{person.name}</h3>
-              {person.roles.map((role) => (
-                <p key={role} className="text-sm text-slate/60">
-                  {role}
-                </p>
-              ))}
-              <div className="mt-3 flex flex-col gap-1">
-                <a href={`mailto:${person.email}`} className="text-sm text-reef hover:underline">
-                  {person.email}
-                </a>
-                <a
-                  href={`tel:${person.phone}`}
-                  className="text-sm text-reef hover:underline"
-                >
-                  {person.phone}
-                </a>
+            <div
+              key={person.name}
+              className="flex items-center gap-5 rounded-sm border border-ink/10 p-6"
+            >
+              {person.photo && (
+                <Image
+                  src={asset(person.photo)}
+                  alt={person.name}
+                  width={160}
+                  height={160}
+                  className="h-20 w-20 shrink-0 rounded-full object-cover"
+                />
+              )}
+              <div>
+                <h3 className="font-display text-lg text-ink">{person.name}</h3>
+                {person.roles.map((role) => (
+                  <p key={role} className="text-sm text-slate/60">
+                    {role}
+                  </p>
+                ))}
+                <div className="mt-3 flex flex-col gap-1">
+                  <a href={`mailto:${person.email}`} className="text-sm text-reef hover:underline">
+                    {person.email}
+                  </a>
+                  <a
+                    href={`tel:${person.phone}`}
+                    className="text-sm text-reef hover:underline"
+                  >
+                    {person.phone}
+                  </a>
+                </div>
               </div>
             </div>
           ))}
