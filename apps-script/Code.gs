@@ -15,8 +15,6 @@ const CONFIG = {
   SENDER_NAME: 'SACH 2027',
   EVENT_DATES: '27th to 29th April 2027',
   EVENT_VENUE: 'JEN Malé by Shangri-La, Malé, Maldives',
-  EVENT_MANAGER: 'Air Yatra Online',
-  EVENT_MANAGER_EMAIL: 'ach2026.registration@airyatraonline.com',
 };
 
 const PRESENTATION_TYPES = ['Oral Paper', 'Poster/ePoster', 'Speaker', 'Attending only (not presenting)'];
@@ -140,9 +138,8 @@ function sendConfirmationEmail_(d) {
     'Cytopathology & Histopathology Conference, to be held on ' + CONFIG.EVENT_DATES + ' at ' +
     CONFIG.EVENT_VENUE + '.\n\n' +
     'We shall contact you once the registration is opened. If you need more information or ' +
-    'clarification, kindly contact us at ' + CONFIG.OWNER_EMAIL + '. For air ticketing, accommodation ' +
-    'and local sightseeing, you may also reach our event manager, ' + CONFIG.EVENT_MANAGER + ', at ' +
-    CONFIG.EVENT_MANAGER_EMAIL + '.\n\n' +
+    'clarification, or assistance with air ticketing, accommodation and local sightseeing, ' +
+    'kindly contact us at ' + CONFIG.OWNER_EMAIL + '.\n\n' +
     'Thank you and we look forward to welcoming you to SACH 2027.\n\n' +
     'Warmest Regards,\n\nOrganizing Committee\nSACH 2027\nEmail: ' + CONFIG.OWNER_EMAIL;
 
@@ -155,11 +152,9 @@ function sendConfirmationEmail_(d) {
     'Academy of Cytopathology &amp; Histopathology Conference, to be held on ' + esc_(CONFIG.EVENT_DATES) +
     ' at ' + esc_(CONFIG.EVENT_VENUE) + '.</p>' +
     '<p>We shall contact you once the registration is opened. If you need more information or ' +
-    'clarification, kindly contact us at <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
-    esc_(CONFIG.OWNER_EMAIL) + '</a>. For air ticketing, accommodation and local sightseeing, you may ' +
-    'also reach our event manager, ' + esc_(CONFIG.EVENT_MANAGER) + ', at <a href="mailto:' +
-    esc_(CONFIG.EVENT_MANAGER_EMAIL) + '">' +
-    esc_(CONFIG.EVENT_MANAGER_EMAIL) + '</a>.</p>' +
+    'clarification, or assistance with air ticketing, accommodation and local sightseeing, ' +
+    'kindly contact us at <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
+    esc_(CONFIG.OWNER_EMAIL) + '</a>.</p>' +
     '<p>Thank you and we look forward to welcoming you to SACH 2027.</p>' +
     '<p>Warmest Regards,</p>' +
     '<p>Organizing Committee<br>SACH 2027<br>Email: <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
