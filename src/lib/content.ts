@@ -140,6 +140,6 @@ export const leadership: LeadershipContact[] = [
 export const eventManager = {
   agency: 'Air Yatra Online',
   address: 'SCO No. 116-117, First floor, Madhya Marg, Sector 8C, Chandigarh – 160009, INDIA',
-  email: 'ach2026.registration@airyatraonline.com',
+  email: 'sachcommittee@gmail.com',
   phones: ['+91 91151 15278', '+91 99143 89549', '+91 82890 99298'],
 };
