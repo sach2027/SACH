@@ -15,7 +15,6 @@ const presentationOptions = [
   'Speaker',
   'Attending only (not presenting)',
 ];
-const grantOptions = ['Yes', 'No'];
 
 function RadioGroup({
   legend,
@@ -65,7 +64,6 @@ export default function InterestForm() {
       email: text('email'),
       phone: text('phone'),
       presentationType: text('presentationType'),
-      grant: text('grant'),
       website: text('website'), // honeypot, must stay empty
     };
 
@@ -133,7 +131,6 @@ export default function InterestForm() {
       </div>
 
       <RadioGroup legend="Presentation type" name="presentationType" options={presentationOptions} />
-      <RadioGroup legend="Applying for Academic Grant?" name="grant" options={grantOptions} />
 
       {status === 'error' && (
         <p className="text-sm text-coral-dark" role="alert">

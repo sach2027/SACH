@@ -20,11 +20,9 @@ const CONFIG = {
 };
 
 const PRESENTATION_TYPES = ['Oral Paper', 'Poster/ePoster', 'Speaker', 'Attending only (not presenting)'];
-const YES_NO = ['Yes', 'No'];
 
 const HEADERS = [
   'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type',
-  'Applying for Academic Grant',
 ];
 
 function doPost(e) {
@@ -72,13 +70,11 @@ function validate_(raw) {
     email: clean_(raw.email, 254),
     phone: clean_(raw.phone, 25),
     presentationType: clean_(raw.presentationType, 40),
-    grant: clean_(raw.grant, 5),
   };
   if (!d.name) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return null;
   if (!/^\+?[\d\s\-()]{6,25}$/.test(d.phone)) return null;
   if (PRESENTATION_TYPES.indexOf(d.presentationType) === -1) return null;
-  if (YES_NO.indexOf(d.grant) === -1) return null;
   return d;
 }
 
@@ -99,7 +95,7 @@ function saveRow_(d) {
     }
     sheet.appendRow([
       new Date(), safeCell_(d.name), safeCell_(d.email), safeCell_(d.phone),
-      d.presentationType, d.grant,
+      d.presentationType,
     ]);
   } finally {
     lock.releaseLock();
@@ -117,7 +113,6 @@ function detailRows_(d) {
     ['Email', d.email],
     ['Phone', d.phone],
     ['Presentation type', d.presentationType],
-    ['Applying for Academic Grant', d.grant],
   ];
 }
 
