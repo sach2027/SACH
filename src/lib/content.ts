@@ -7,20 +7,42 @@ export type Speaker = {
   name: string;
   country: string;
   region: 'non-saarc' | 'saarc';
+  photo?: string; // file in /public/speakers
   bio?: string;
   sessionTopic?: string;
 };
 
 export const speakers: Speaker[] = [
-  { name: 'Dr. Samer Khader', country: 'USA', region: 'non-saarc' },
-  { name: 'Dr. Lakshmi Harinath', country: 'USA', region: 'non-saarc' },
-  { name: 'Dr. Tomoo Itoh', country: 'Japan', region: 'non-saarc' },
+  {
+    name: 'Dr. Samer Khader',
+    country: 'USA',
+    region: 'non-saarc',
+    photo: '/speakers/samer-khader.jpg',
+  },
+  {
+    name: 'Dr. Lakshmi Harinath',
+    country: 'USA',
+    region: 'non-saarc',
+    photo: '/speakers/lakshmi-harinath.jpg',
+  },
+  {
+    name: 'Dr. Tomoo Itoh',
+    country: 'Japan',
+    region: 'non-saarc',
+    photo: '/speakers/tomoo-itoh.jpg',
+  },
   {
     name: 'Dr. Pasupati Meenakshi Thanikachalam',
     country: 'Malaysia',
     region: 'non-saarc',
+    photo: '/speakers/thanikachalam.jpg',
   },
-  { name: 'Dr. Do Minh Hoang Trong', country: 'Vietnam', region: 'non-saarc' },
+  {
+    name: 'Dr. Do Minh Hoang Trong',
+    country: 'Vietnam',
+    region: 'non-saarc',
+    photo: '/speakers/do-minh-hoang-trong.jpg',
+  },
 ];
 
 export type AwardCategory = {

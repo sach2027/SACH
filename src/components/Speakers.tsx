@@ -1,16 +1,28 @@
+import Image from 'next/image';
 import { speakers, type Speaker } from '@/lib/content';
+import { asset } from '@/lib/assets';
 
 function SpeakerCard({ speaker }: { speaker: Speaker }) {
   return (
     <div className="flex flex-col items-start rounded-sm border border-ink/10 bg-foam p-5 text-left">
-      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-reef/10 font-display text-lg text-reef">
-        {speaker.name
-          .replace('Dr. ', '')
-          .split(' ')
-          .map((n) => n[0])
-          .slice(0, 2)
-          .join('')}
-      </div>
+      {speaker.photo ? (
+        <Image
+          src={asset(speaker.photo)}
+          alt={speaker.name}
+          width={160}
+          height={160}
+          className="mb-4 h-20 w-20 rounded-full object-cover"
+        />
+      ) : (
+        <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-reef/10 font-display text-xl text-reef">
+          {speaker.name
+            .replace('Dr. ', '')
+            .split(' ')
+            .map((n) => n[0])
+            .slice(0, 2)
+            .join('')}
+        </div>
+      )}
       <h3 className="font-display text-lg text-ink">{speaker.name}</h3>
       <p className="mt-1 text-sm text-slate/70">{speaker.country}</p>
     </div>
