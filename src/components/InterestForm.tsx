@@ -133,7 +133,7 @@ export default function InterestForm() {
       </div>
 
       <RadioGroup legend="Presentation type" name="presentationType" options={presentationOptions} />
-      <RadioGroup legend="Applying for Academic/Travel Grant?" name="grant" options={grantOptions} />
+      <RadioGroup legend="Applying for Academic Grant?" name="grant" options={grantOptions} />
 
       {status === 'error' && (
         <p className="text-sm text-coral-dark" role="alert">

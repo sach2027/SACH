@@ -24,7 +24,7 @@ const YES_NO = ['Yes', 'No'];
 
 const HEADERS = [
   'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type',
-  'Applying for Academic/Travel Grant',
+  'Applying for Academic Grant',
 ];
 
 function doPost(e) {
@@ -117,7 +117,7 @@ function detailRows_(d) {
     ['Email', d.email],
     ['Phone', d.phone],
     ['Presentation type', d.presentationType],
-    ['Applying for Academic/Travel Grant', d.grant],
+    ['Applying for Academic Grant', d.grant],
   ];
 }
 

@@ -58,7 +58,7 @@ export const awards: AwardCategory[] = [
   },
   {
     icon: 'plane',
-    name: 'Academic/Travel Grant',
+    name: 'Academic Grant',
     winners: '5 awardees',
     eligibility: 'Open to registered abstract presenters who are under 30 years of age.',
     amount: 'Each awardee will receive USD 100.',
