@@ -32,7 +32,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
 function ComingSoonCard() {
   return (
     <div className="flex flex-col items-start justify-center rounded-sm border border-dashed border-ink/20 bg-transparent p-5">
-      <p className="font-display text-lg text-ink/50">SAARC Countries speakers</p>
+      <p className="font-display text-lg text-ink/50">SAARC Country speakers</p>
       <p className="mt-1 text-sm text-slate/50">To be announced soon</p>
     </div>
   );
@@ -49,7 +49,7 @@ export default function Speakers() {
         </h2>
 
         <h3 className="mt-12 text-sm font-medium uppercase tracking-wide text-slate/60">
-          Non-SAARC Countries speakers
+          Non-SAARC Country speakers
         </h3>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {nonSaarc.map((s) => (
@@ -58,7 +58,7 @@ export default function Speakers() {
         </div>
 
         <h3 className="mt-14 text-sm font-medium uppercase tracking-wide text-slate/60">
-          SAARC Countries speakers
+          SAARC Country speakers
         </h3>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <ComingSoonCard />
