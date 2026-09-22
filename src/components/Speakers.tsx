@@ -23,7 +23,9 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
             .join('')}
         </div>
       )}
-      <h3 className="font-display text-lg text-ink">{speaker.name}</h3>
+      <h3 className="font-display text-lg leading-snug text-ink line-clamp-2 min-h-[3.15rem]">
+        {speaker.name}
+      </h3>
       <p className="mt-1 text-sm text-slate/70">{speaker.country}</p>
     </div>
   );
@@ -51,7 +53,7 @@ export default function Speakers() {
         <h3 className="mt-12 text-sm font-medium uppercase tracking-wide text-slate/60">
           Non-SAARC Country speakers
         </h3>
-        <div className="mt-5 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {nonSaarc.map((s) => (
             <SpeakerCard key={s.name} speaker={s} />
           ))}
@@ -60,7 +62,7 @@ export default function Speakers() {
         <h3 className="mt-14 text-sm font-medium uppercase tracking-wide text-slate/60">
           SAARC Country speakers
         </h3>
-        <div className="mt-5 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <ComingSoonCard />
         </div>
       </div>
