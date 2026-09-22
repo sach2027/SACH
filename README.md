@@ -1,4 +1,4 @@
-Link to website: https://shazkp13.github.io/SACH/
+Link to website: https://sach2027.github.io/SACH/
 
 # SACH 2027 — Conference Website
 
