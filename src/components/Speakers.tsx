@@ -4,17 +4,17 @@ import { asset } from '@/lib/assets';
 
 function SpeakerCard({ speaker }: { speaker: Speaker }) {
   return (
-    <div className="flex flex-col items-start rounded-sm border border-ink/10 bg-foam p-5 pb-4 text-left">
+    <div className="flex flex-col items-start rounded-sm border border-ink/10 bg-foam p-5 text-left">
       {speaker.photo ? (
         <Image
           src={asset(speaker.photo)}
           alt={speaker.name}
           width={160}
           height={160}
-          className="mb-3 h-20 w-20 rounded-full object-cover"
+          className="mb-4 h-20 w-20 rounded-full object-cover"
         />
       ) : (
-        <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-reef/10 font-display text-xl text-reef">
+        <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-reef/10 font-display text-xl text-reef">
           {speaker.name
             .replace('Dr. ', '')
             .split(' ')
@@ -23,9 +23,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
             .join('')}
         </div>
       )}
-      <h3 className="font-display text-lg leading-snug text-ink line-clamp-2 min-h-[3.15rem]">
-        {speaker.name}
-      </h3>
+      <h3 className="font-display text-lg text-ink">{speaker.name}</h3>
       <p className="mt-1 text-sm text-slate/70">{speaker.country}</p>
     </div>
   );
