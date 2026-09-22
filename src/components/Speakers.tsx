@@ -4,17 +4,17 @@ import { asset } from '@/lib/assets';
 
 function SpeakerCard({ speaker }: { speaker: Speaker }) {
   return (
-    <div className="flex flex-col items-start rounded-sm border border-ink/10 bg-foam p-5 text-left">
+    <div className="flex flex-col items-start rounded-sm border border-ink/10 bg-foam p-5 pb-4 text-left">
       {speaker.photo ? (
         <Image
           src={asset(speaker.photo)}
           alt={speaker.name}
           width={160}
           height={160}
-          className="mb-4 h-20 w-20 rounded-full object-cover"
+          className="mb-3 h-20 w-20 rounded-full object-cover"
         />
       ) : (
-        <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-reef/10 font-display text-xl text-reef">
+        <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-reef/10 font-display text-xl text-reef">
           {speaker.name
             .replace('Dr. ', '')
             .split(' ')
@@ -51,7 +51,7 @@ export default function Speakers() {
         <h3 className="mt-12 text-sm font-medium uppercase tracking-wide text-slate/60">
           Non-SAARC Country speakers
         </h3>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {nonSaarc.map((s) => (
             <SpeakerCard key={s.name} speaker={s} />
           ))}
@@ -60,7 +60,7 @@ export default function Speakers() {
         <h3 className="mt-14 text-sm font-medium uppercase tracking-wide text-slate/60">
           SAARC Country speakers
         </h3>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <ComingSoonCard />
         </div>
       </div>
