@@ -132,10 +132,11 @@ export default function InterestForm() {
       </div>
 
       <div>
-        <label htmlFor="if-nationality" className={labelClass}>Nationality</label>
+        <label htmlFor="if-nationality" className={labelClass}>Nationality *</label>
         <input
           id="if-nationality"
           name="nationality"
+          required
           maxLength={60}
           autoComplete="country-name"
           className={inputClass}
