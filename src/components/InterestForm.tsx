@@ -64,6 +64,7 @@ export default function InterestForm() {
       email: text('email'),
       phone: text('phone'),
       presentationType: text('presentationType'),
+      nationality: text('nationality'),
       website: text('website'), // honeypot, must stay empty
     };
 
@@ -126,6 +127,17 @@ export default function InterestForm() {
           pattern="\+?[0-9\s\-\(\)]{6,25}"
           title="Enter a valid phone number, for example +91 98765 43210"
           autoComplete="tel"
+          className={inputClass}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="if-nationality" className={labelClass}>Nationality</label>
+        <input
+          id="if-nationality"
+          name="nationality"
+          maxLength={60}
+          autoComplete="country-name"
           className={inputClass}
         />
       </div>
