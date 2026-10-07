@@ -43,6 +43,41 @@ export const speakers: Speaker[] = [
     region: 'non-saarc',
     photo: '/speakers/do-minh-hoang-trong.jpg',
   },
+  {
+    name: 'Dr. Jerzy Klijanienko',
+    country: 'Poland',
+    region: 'non-saarc',
+  },
+  {
+    name: 'Dr. Gloria Sura',
+    country: 'USA',
+    region: 'non-saarc',
+  },
+  {
+    name: 'Dr. Yosep Chong',
+    country: 'South Korea',
+    region: 'non-saarc',
+  },
+  {
+    name: 'Dr. Nirag Jhala',
+    country: 'USA',
+    region: 'non-saarc',
+  },
+  {
+    name: 'Dr. Darshana Jhala',
+    country: 'USA',
+    region: 'non-saarc',
+  },
+  {
+    name: 'Dr. Poonam Vohra',
+    country: 'USA',
+    region: 'non-saarc',
+  },
+  {
+    name: 'Dr. Swikriti Upadyay Baskota',
+    country: 'USA',
+    region: 'non-saarc',
+  },
 ];
 
 export type AwardCategory = {
