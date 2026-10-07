@@ -78,6 +78,11 @@ export const speakers: Speaker[] = [
     country: 'USA',
     region: 'non-saarc',
   },
+  {
+    name: 'Dr. Immaculda',
+    country: 'Italy',
+    region: 'non-saarc',
+  },
 ];
 
 export type AwardCategory = {
