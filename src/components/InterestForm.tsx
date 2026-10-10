@@ -202,7 +202,6 @@ export default function InterestForm() {
           autoComplete="country-name"
           className={inputClass}
         />
-        <p className="mt-1 text-xs text-slate/60">Your citizenship.</p>
       </div>
 
       <RadioGroup legend="Presentation type" name="presentationType" options={presentationOptions} />
