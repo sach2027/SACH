@@ -64,6 +64,7 @@ export default function InterestForm() {
     const payload = {
       salutation: text('salutation'),
       name: text('name'),
+      affiliation: text('affiliation'),
       email: text('email'),
       phone: text('phone'),
       presentationType: text('presentationType'),
@@ -129,6 +130,19 @@ export default function InterestForm() {
       <div>
         <label htmlFor="if-name" className={labelClass}>Full name *</label>
         <input id="if-name" name="name" required maxLength={120} autoComplete="name" className={inputClass} />
+      </div>
+      <div>
+        <label htmlFor="if-affiliation" className={labelClass}>
+          Affiliations (Designation, Workplace, Country) *
+        </label>
+        <input
+          id="if-affiliation"
+          name="affiliation"
+          required
+          maxLength={200}
+          autoComplete="organization-title"
+          className={inputClass}
+        />
       </div>
       <div>
         <label htmlFor="if-email" className={labelClass}>Email *</label>
