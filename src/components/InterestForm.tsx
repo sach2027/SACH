@@ -133,42 +133,44 @@ export default function InterestForm() {
         <label htmlFor="if-name" className={labelClass}>Full name *</label>
         <input id="if-name" name="name" required maxLength={120} autoComplete="name" className={inputClass} />
       </div>
-      <fieldset className="space-y-5">
+      <fieldset>
         <legend className="mb-3 text-sm font-medium text-ink">Affiliation</legend>
-        <div>
-          <label htmlFor="if-designation" className={labelClass}>Designation *</label>
-          <input
-            id="if-designation"
-            name="designation"
-            required
-            maxLength={100}
-            autoComplete="organization-title"
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label htmlFor="if-workplace" className={labelClass}>Workplace *</label>
-          <input
-            id="if-workplace"
-            name="workplace"
-            required
-            maxLength={150}
-            autoComplete="organization"
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label htmlFor="if-work-country" className={labelClass}>Country of workplace *</label>
-          <input
-            id="if-work-country"
-            name="workCountry"
-            required
-            maxLength={60}
-            className={inputClass}
-          />
-          <p className="mt-1 text-xs text-slate/60">
-            The country where you currently work or study.
-          </p>
+        <div className="space-y-5">
+          <div>
+            <label htmlFor="if-designation" className={labelClass}>Designation *</label>
+            <input
+              id="if-designation"
+              name="designation"
+              required
+              maxLength={100}
+              autoComplete="organization-title"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor="if-workplace" className={labelClass}>Workplace *</label>
+            <input
+              id="if-workplace"
+              name="workplace"
+              required
+              maxLength={150}
+              autoComplete="organization"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor="if-work-country" className={labelClass}>Country of workplace *</label>
+            <input
+              id="if-work-country"
+              name="workCountry"
+              required
+              maxLength={60}
+              className={inputClass}
+            />
+            <p className="mt-1 text-xs text-slate/60">
+              The country where you currently work or study.
+            </p>
+          </div>
         </div>
       </fieldset>
       <div>
