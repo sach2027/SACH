@@ -20,7 +20,7 @@ const CONFIG = {
 const PRESENTATION_TYPES = ['Oral Paper', 'Poster/ePoster', 'Speaker', 'Attending only (not presenting)'];
 
 const HEADERS = [
-  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type',
+  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type', 'Nationality',
 ];
 
 function doPost(e) {
@@ -68,11 +68,13 @@ function validate_(raw) {
     email: clean_(raw.email, 254),
     phone: clean_(raw.phone, 25),
     presentationType: clean_(raw.presentationType, 40),
+    nationality: clean_(raw.nationality, 60),
   };
   if (!d.name) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return null;
   if (!/^\+?[\d\s\-()]{6,25}$/.test(d.phone)) return null;
   if (PRESENTATION_TYPES.indexOf(d.presentationType) === -1) return null;
+  if (!d.nationality) return null;
   return d;
 }
 
@@ -93,7 +95,7 @@ function saveRow_(d) {
     }
     sheet.appendRow([
       new Date(), safeCell_(d.name), safeCell_(d.email), safeCell_(d.phone),
-      d.presentationType,
+      d.presentationType, safeCell_(d.nationality),
     ]);
   } finally {
     lock.releaseLock();
@@ -111,6 +113,7 @@ function detailRows_(d) {
     ['Email', d.email],
     ['Phone', d.phone],
     ['Presentation type', d.presentationType],
+    ['Nationality', d.nationality],
   ];
 }
 
@@ -139,7 +142,8 @@ function sendConfirmationEmail_(d) {
     CONFIG.EVENT_VENUE + '.\n\n' +
     'We shall contact you once the registration is opened. If you need more information or ' +
     'clarification, or assistance with air ticketing, accommodation and local sightseeing, ' +
-    'kindly contact us at ' + CONFIG.OWNER_EMAIL + '.\n\n' +
+    'kindly contact us at ' + CONFIG.OWNER_EMAIL + ' or directly contact Ms. Chanda Mehra at ' +
+    '+91 91151 15278.\n\n' +
     'Thank you and we look forward to welcoming you to SACH 2027.\n\n' +
     'Warmest Regards,\n\nOrganizing Committee\nSACH 2027\nEmail: ' + CONFIG.OWNER_EMAIL;
 
@@ -154,7 +158,8 @@ function sendConfirmationEmail_(d) {
     '<p>We shall contact you once the registration is opened. If you need more information or ' +
     'clarification, or assistance with air ticketing, accommodation and local sightseeing, ' +
     'kindly contact us at <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
-    esc_(CONFIG.OWNER_EMAIL) + '</a>.</p>' +
+    esc_(CONFIG.OWNER_EMAIL) + '</a> or directly contact Ms. Chanda Mehra at ' +
+    '<a href="tel:+919115115278">+91 91151 15278</a>.</p>' +
     '<p>Thank you and we look forward to welcoming you to SACH 2027.</p>' +
     '<p>Warmest Regards,</p>' +
     '<p>Organizing Committee<br>SACH 2027<br>Email: <a href="mailto:' + esc_(CONFIG.OWNER_EMAIL) + '">' +
