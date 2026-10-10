@@ -159,7 +159,7 @@ export default function InterestForm() {
             />
           </div>
           <div>
-            <label htmlFor="if-work-country" className={labelClass}>Country of workplace *</label>
+            <label htmlFor="if-work-country" className={labelClass}>Country of Workplace *</label>
             <input
               id="if-work-country"
               name="workCountry"
@@ -168,7 +168,7 @@ export default function InterestForm() {
               className={inputClass}
             />
             <p className="mt-1 text-xs text-slate/60">
-              The country where you currently work or study.
+              The country where you currently work.
             </p>
           </div>
         </div>
