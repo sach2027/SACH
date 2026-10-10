@@ -64,7 +64,9 @@ export default function InterestForm() {
     const payload = {
       salutation: text('salutation'),
       name: text('name'),
-      affiliation: text('affiliation'),
+      designation: text('designation'),
+      workplace: text('workplace'),
+      workCountry: text('workCountry'),
       email: text('email'),
       phone: text('phone'),
       presentationType: text('presentationType'),
@@ -131,19 +133,44 @@ export default function InterestForm() {
         <label htmlFor="if-name" className={labelClass}>Full name *</label>
         <input id="if-name" name="name" required maxLength={120} autoComplete="name" className={inputClass} />
       </div>
-      <div>
-        <label htmlFor="if-affiliation" className={labelClass}>
-          Affiliations (Designation, Workplace, Country) *
-        </label>
-        <input
-          id="if-affiliation"
-          name="affiliation"
-          required
-          maxLength={200}
-          autoComplete="organization-title"
-          className={inputClass}
-        />
-      </div>
+      <fieldset className="space-y-5">
+        <legend className="mb-3 text-sm font-medium text-ink">Affiliation</legend>
+        <div>
+          <label htmlFor="if-designation" className={labelClass}>Designation *</label>
+          <input
+            id="if-designation"
+            name="designation"
+            required
+            maxLength={100}
+            autoComplete="organization-title"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="if-workplace" className={labelClass}>Workplace *</label>
+          <input
+            id="if-workplace"
+            name="workplace"
+            required
+            maxLength={150}
+            autoComplete="organization"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="if-work-country" className={labelClass}>Country of workplace *</label>
+          <input
+            id="if-work-country"
+            name="workCountry"
+            required
+            maxLength={60}
+            className={inputClass}
+          />
+          <p className="mt-1 text-xs text-slate/60">
+            The country where you currently work or study.
+          </p>
+        </div>
+      </fieldset>
       <div>
         <label htmlFor="if-email" className={labelClass}>Email *</label>
         <input id="if-email" name="email" type="email" required maxLength={254} autoComplete="email" className={inputClass} />
@@ -173,6 +200,7 @@ export default function InterestForm() {
           autoComplete="country-name"
           className={inputClass}
         />
+        <p className="mt-1 text-xs text-slate/60">Your citizenship.</p>
       </div>
 
       <RadioGroup legend="Presentation type" name="presentationType" options={presentationOptions} />
