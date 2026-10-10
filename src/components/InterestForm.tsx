@@ -9,6 +9,8 @@ const inputClass =
   'w-full rounded-sm border border-ink/15 bg-white px-3 py-2.5 text-sm text-ink focus:border-reef focus:outline-none';
 const labelClass = 'mb-1 block text-xs font-medium text-slate/70';
 
+const salutations = ['Prof.', 'Dr.', 'Mr.', 'Ms.', 'Mrs.'];
+
 const presentationOptions = [
   'Oral Paper',
   'Poster/ePoster',
@@ -60,6 +62,7 @@ export default function InterestForm() {
     const text = (key: string) => String(fd.get(key) ?? '').trim();
 
     const payload = {
+      salutation: text('salutation'),
       name: text('name'),
       email: text('email'),
       phone: text('phone'),
@@ -108,6 +111,21 @@ export default function InterestForm() {
         </label>
       </div>
 
+      <div>
+        <label htmlFor="if-salutation" className={labelClass}>Salutation *</label>
+        <select
+          id="if-salutation"
+          name="salutation"
+          required
+          defaultValue=""
+          className={inputClass}
+        >
+          <option value="" disabled>Select</option>
+          {salutations.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+      </div>
       <div>
         <label htmlFor="if-name" className={labelClass}>Full name *</label>
         <input id="if-name" name="name" required maxLength={120} autoComplete="name" className={inputClass} />
