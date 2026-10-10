@@ -19,8 +19,10 @@ const CONFIG = {
 
 const PRESENTATION_TYPES = ['Oral Paper', 'Poster/ePoster', 'Speaker', 'Attending only (not presenting)'];
 
+const SALUTATIONS = ['Prof.', 'Dr.', 'Mr.', 'Ms.', 'Mrs.'];
+
 const HEADERS = [
-  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type', 'Nationality',
+  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type', 'Nationality', 'Salutation',
 ];
 
 function doPost(e) {
@@ -69,12 +71,14 @@ function validate_(raw) {
     phone: clean_(raw.phone, 25),
     presentationType: clean_(raw.presentationType, 40),
     nationality: clean_(raw.nationality, 60),
+    salutation: clean_(raw.salutation, 10),
   };
   if (!d.name) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return null;
   if (!/^\+?[\d\s\-()]{6,25}$/.test(d.phone)) return null;
   if (PRESENTATION_TYPES.indexOf(d.presentationType) === -1) return null;
   if (!d.nationality) return null;
+  if (SALUTATIONS.indexOf(d.salutation) === -1) return null;
   return d;
 }
 
@@ -95,7 +99,7 @@ function saveRow_(d) {
     }
     sheet.appendRow([
       new Date(), safeCell_(d.name), safeCell_(d.email), safeCell_(d.phone),
-      d.presentationType, safeCell_(d.nationality),
+      d.presentationType, safeCell_(d.nationality), d.salutation,
     ]);
   } finally {
     lock.releaseLock();
@@ -109,6 +113,7 @@ function esc_(s) {
 
 function detailRows_(d) {
   return [
+    ['Salutation', d.salutation],
     ['Full name', d.name],
     ['Email', d.email],
     ['Phone', d.phone],
@@ -136,7 +141,7 @@ function sendOwnerEmail_(d) {
 
 function sendConfirmationEmail_(d) {
   const plain =
-    'Dear ' + d.name + ',\n\n' +
+    'Dear ' + d.salutation + ' ' + d.name + ',\n\n' +
     'Thank you for your interest in registering for SACH 2027, the 8th South-Asian Academy of ' +
     'Cytopathology & Histopathology Conference, to be held on ' + CONFIG.EVENT_DATES + ' at ' +
     CONFIG.EVENT_VENUE + '.\n\n' +
@@ -151,7 +156,7 @@ function sendConfirmationEmail_(d) {
   const html =
     '<div style="font-family:Arial,sans-serif;font-size:15px;color:#111;line-height:1.6;max-width:600px">' +
     (logo ? '<p style="margin:0 0 20px"><img src="cid:sachlogo" alt="SACH logo" width="64" style="display:block;border:0"></p>' : '') +
-    '<p>Dear ' + esc_(d.name) + ',</p>' +
+    '<p>Dear ' + esc_(d.salutation) + ' ' + esc_(d.name) + ',</p>' +
     '<p>Thank you for your interest in registering for <strong>SACH 2027</strong>, the 8th South-Asian ' +
     'Academy of Cytopathology &amp; Histopathology Conference, to be held on ' + esc_(CONFIG.EVENT_DATES) +
     ' at ' + esc_(CONFIG.EVENT_VENUE) + '.</p>' +
