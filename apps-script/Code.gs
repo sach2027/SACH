@@ -22,7 +22,8 @@ const PRESENTATION_TYPES = ['Oral Paper', 'Poster/ePoster', 'Speaker', 'Attendin
 const SALUTATIONS = ['Prof.', 'Dr.', 'Mr.', 'Ms.', 'Mrs.'];
 
 const HEADERS = [
-  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type', 'Nationality', 'Salutation', 'Affiliations',
+  'Timestamp', 'Full name', 'Email', 'Phone', 'Presentation type', 'Nationality', 'Salutation',
+  'Designation', 'Workplace', 'Country of workplace',
 ];
 
 function doPost(e) {
@@ -72,10 +73,12 @@ function validate_(raw) {
     presentationType: clean_(raw.presentationType, 40),
     nationality: clean_(raw.nationality, 60),
     salutation: clean_(raw.salutation, 10),
-    affiliation: clean_(raw.affiliation, 200),
+    designation: clean_(raw.designation, 100),
+    workplace: clean_(raw.workplace, 150),
+    workCountry: clean_(raw.workCountry, 60),
   };
   if (!d.name) return null;
-  if (!d.affiliation) return null;
+  if (!d.designation || !d.workplace || !d.workCountry) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return null;
   if (!/^\+?[\d\s\-()]{6,25}$/.test(d.phone)) return null;
   if (PRESENTATION_TYPES.indexOf(d.presentationType) === -1) return null;
@@ -101,7 +104,8 @@ function saveRow_(d) {
     }
     sheet.appendRow([
       new Date(), safeCell_(d.name), safeCell_(d.email), safeCell_(d.phone),
-      d.presentationType, safeCell_(d.nationality), d.salutation, safeCell_(d.affiliation),
+      d.presentationType, safeCell_(d.nationality), d.salutation,
+      safeCell_(d.designation), safeCell_(d.workplace), safeCell_(d.workCountry),
     ]);
   } finally {
     lock.releaseLock();
@@ -117,7 +121,9 @@ function detailRows_(d) {
   return [
     ['Salutation', d.salutation],
     ['Full name', d.name],
-    ['Affiliations', d.affiliation],
+    ['Designation', d.designation],
+    ['Workplace', d.workplace],
+    ['Country of workplace', d.workCountry],
     ['Email', d.email],
     ['Phone', d.phone],
     ['Presentation type', d.presentationType],
